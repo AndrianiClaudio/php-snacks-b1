@@ -13,8 +13,9 @@
     <ul v-for='car in db'>
       <li v-for='(detail,index) in car'>
         <b>{{index}}: </b>
-        <span>
-        {{detail}}
+        <img v-if='index=="Immagine"' :src="`./img/${detail}`" alt="">
+        <span v-else>
+          {{detail}}
         </span>
       </li>
     </ul>
