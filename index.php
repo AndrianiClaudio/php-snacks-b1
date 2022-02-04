@@ -7,12 +7,14 @@
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="app">
     <ul v-for='car in db'>
       <li v-for='(detail,index) in car'>
-        <b>{{index}}: </b>
+        <b v-if='index!="Immagine"'>{{index}}: </b>
         <img v-if='index=="Immagine"' :src="`./img/${detail}`" alt="">
         <span v-else>
           {{detail}}
