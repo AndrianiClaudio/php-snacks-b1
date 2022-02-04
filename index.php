@@ -1,7 +1,3 @@
-<?php
-// require_once __DIR__ . '/server/db.php';
-// var_dump($db);
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +10,13 @@
 </head>
 <body>
   <div id="app">
-    <ul>
+    <ul v-for='car in db'>
+      <li v-for='(detail,index) in car'>
+        <b>{{index}}: </b>
+        <span>
+        {{detail}}
+        </span>
+      </li>
     </ul>
   </div>
   <script src="js/script.js"></script>
