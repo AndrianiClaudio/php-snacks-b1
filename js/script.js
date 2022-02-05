@@ -8,20 +8,16 @@ const app = new Vue({
       value: 'all',
       options: ['all',],
     },
+    selectPrice: {
+      value: 'all',
+      options: ['all',],
+      maxPrice: null,
+      rangeValue: 15000,
+    },
     filterCarsInfo: [],
   },
   methods: {
-    // getOptions() {
-    //   // console.log('ok');
-    //   // console.log(this.db);
-    //   this.db.foreach((el,index) => {
-    //     console.log(el,index);
-    //     this.selectBrand.options.push(el);
-    //   });
-    //   console.log(this.selectBrand.options);
-    // },
     getCar(i) {
-      // console.log(i);
       this.car = this.db[i];
       return this.car;
     },
@@ -47,33 +43,51 @@ const app = new Vue({
       })
       .then(() => {
         this.filterCarsInfo = this.carsInfo;
+        //popola options
+        this.selectPrice.maxPrice = this.db[0].Prezzo;
         this.db.forEach((el) => {
-          // console.log(el,index);
           if(!this.selectBrand.options.includes(el.Marca)) {
             this.selectBrand.options.push (el.Marca);
           }
+          if(el.Prezzo > this.selectPrice.maxPrice) {
+            this.selectPrice.maxPrice = el.Prezzo;
+          }
         });
-        // console.log(this.selectBrand.options);
+        for(let i=0;i<this.selectPrice.maxPrice;i += this.selectPrice.rangeValue) {
+          this.selectPrice.options.push(`${i}-${i+this.selectPrice.rangeValue}`);
+          // console.log(i,'-',i+this.selectPrice.rangeValue);
+        }
+        // console.log(this.selectPrice.maxPrice);
       });
     },
-    filterBrand() {
-      console.log(this.selectBrand.value);
-      if (this.selectBrand.value == 'all') {
+    // filtra macchine
+    filterCars() {
+      [min,max] = this.selectPrice.value.split('-');
+      if(this.selectBrand.value === 'all' && this.selectPrice.value === 'all') {
+        //mostra tutto
         this.filterCarsInfo = this.carsInfo;
       } else {
-        this.filterCarsInfo = this.carsInfo.filter((el) => {
-          // console.log(el.Marca == this.selectBrand.value);
-          return el.brand == this.selectBrand.value;
-        })
-        console.log(this.filterCarsInfo);
+        if(this.selectBrand.value !== 'all' && this.selectPrice.value !== 'all') {
+          //selezionati sia marca che prezzo
+          this.filterCarsInfo = this.carsInfo.filter((el) => {
+            return el.brand === this.selectBrand.value &&
+                  el.price >= min && el.price <= max;
+          })
+        } else if(this.selectBrand.value !== 'all') {
+          //selezionata solo marca
+          this.filterCarsInfo = this.carsInfo.filter(el => {
+            return el.brand === this.selectBrand.value;
+          })
+        }else if(this.selectPrice.value !== 'all') {
+          //selezionato solo prezzo
+          this.filterCarsInfo = this.carsInfo.filter(el => {
+            return el.price >= min && el.price <= max;
+          })
+        }
       }
-    }
+    },
   },
   created() {
-    // console.log('created');
     this.getDb();
   },
-  // mounted() {
-  //   console.log('mounted');
-  // }
-})
+});
