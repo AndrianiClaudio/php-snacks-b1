@@ -7,20 +7,23 @@
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="app">
-    <ul v-for='car in db'>
-      <li v-for='(detail,index) in car'>
-        <b v-if='index!="Immagine"'>{{index}}: </b>
-        <img v-if='index=="Immagine"' :src="`./img/${detail}`" alt="">
-        <span v-else>
-          {{detail}}
-        </span>
-      </li>
-    </ul>
+    <div class="container">
+      <section class="car"
+      v-for='(car,index) in cars_info'
+      :key='`car-${index}`'>
+      <!-- al click apri una pagina nuova ... target='_blank' solo per test per evitare avanti indietro continui -->
+        <h2><a :href="`car.php?index=${index}`" target="_blank">{{car.fullName}}</a></h2>
+        <img :src="`img/${car.imgPath}`" alt="Immagine non trovata">
+        <p><b>Prezzo: </b>{{car.price}}&euro;</sup></p>
+        <p><b>Cilindrata: </b>{{car.displacement}} cm<sup>3</sup></p>
+        <p><b>Potenza: </b>{{car.cv}} CV</p>
+        <p><b>Alimentazione: </b>{{car.supply}}</p>
+      </section>
+    </div>
   </div>
   <script src="js/script.js"></script>
 </body>
