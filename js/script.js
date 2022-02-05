@@ -7,7 +7,8 @@ const app = new Vue({
     selectBrand: {
       value: 'all',
       options: ['all',],
-    }
+    },
+    filterCarsInfo: [],
   },
   methods: {
     // getOptions() {
@@ -28,11 +29,11 @@ const app = new Vue({
       axios.get('http://localhost/php-snacks-b1/server/controller.php').
       then((result) => {
         this.db = result.data;
-        console.log(this.db);
         // filtra elementi con dati necessari attualmente alla concessionaria. salvati in carsInfo
         this.db.forEach(el => {
           this.carsInfo.push ({
-            fullName: el.Marca + ' ' + el.Generazione,
+            brand: el.Marca,
+            generation: el.Generazione,
             imgPath: el.Immagine,
             cv: el.Potenza,
             displacement: el.Cilindrata,
@@ -45,6 +46,7 @@ const app = new Vue({
         console.error(err);
       })
       .then(() => {
+        this.filterCarsInfo = this.carsInfo;
         this.db.forEach((el) => {
           // console.log(el,index);
           if(!this.selectBrand.options.includes(el.Marca)) {
@@ -54,9 +56,21 @@ const app = new Vue({
         // console.log(this.selectBrand.options);
       });
     },
+    filterBrand() {
+      console.log(this.selectBrand.value);
+      if (this.selectBrand.value == 'all') {
+        this.filterCarsInfo = this.carsInfo;
+      } else {
+        this.filterCarsInfo = this.carsInfo.filter((el) => {
+          // console.log(el.Marca == this.selectBrand.value);
+          return el.brand == this.selectBrand.value;
+        })
+        console.log(this.filterCarsInfo);
+      }
+    }
   },
   created() {
-    console.log('created');
+    // console.log('created');
     this.getDb();
   },
   // mounted() {
