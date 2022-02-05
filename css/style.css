@@ -3,3 +3,25 @@
   padding: 0;
   box-sizing: border-box;
 }
+/*GENERALE*/
+a {
+  text-decoration: none;
+  color:black;
+}
+a:visited{
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline 2px dashed darkblue;
+  color: darkblue;
+}
+/*FINE GENERALE*/
+section.car {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+section.car img.car-image {
+  width: 375px;
+  height: 250px;
+}
