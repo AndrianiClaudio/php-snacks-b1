@@ -1,0 +1,17 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+ul {
+  list-style: none;
+}
+img {
+  height: 350px;
+  width: 500px;
+}

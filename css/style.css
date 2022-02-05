@@ -16,7 +16,7 @@ a:hover {
   color: darkblue;
 }
 /*FINE GENERALE*/
-section.car {
+section {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
