@@ -28,3 +28,6 @@ section.car img.car-image {
   width: 375px;
   height: 250px;
 }
+p {
+  text-align: center;
+}
