@@ -3,7 +3,6 @@ const app = new Vue({
   data: {
     db: [],
     carsInfo :[],
-    car: [],
     selectBrand: {
       value: 'all',
       options: ['all',],
