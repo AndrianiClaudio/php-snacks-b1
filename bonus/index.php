@@ -1,5 +1,18 @@
 <?php
 include_once __DIR__ . '/server/db.php';
+$filterCar = $db;
+
+//filtra per marca!
+if (isset($_GET['select-brand'])) {
+  $brand = $_GET['select-brand'];
+  foreach($filterCar as $index => $fcar) {
+    if($fcar['Marca'] !== $brand) {
+      //rimuovi elemento senza marca
+      unset($filterCar[$index]);
+    }
+    //eventuali altri filtraggi andrebbero qui sotto.
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +25,7 @@ include_once __DIR__ . '/pages/head.php';
     <?php include_once __DIR__ . './pages/header.php';?>
     <div class="container">
       <?php
-      foreach ($db as $i => $car) {
+      foreach ($filterCar as $i => $car) {
         // var_dump($car);
         echo "<section class='car'>";
         // <h2><a :href="`pages/car/index.php?index=${index}`">{{car.brand}} {{car.generation}}</a></h2>

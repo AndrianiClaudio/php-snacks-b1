@@ -1,6 +1,6 @@
 <header class="header">
   <!-- SI VUOLE FILTRARE PER MARCA E PER FASCIA DI PREZZO -->
-  <form action="<?php __DIR__ . '/index.html'?>">
+  <form action="index.php">
     <label for="select-brand">
       <b>Marca</b>
       <?php
